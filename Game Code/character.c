@@ -6,6 +6,7 @@
 #include <windows.h>
 
 #include "delay.h"
+#include <math.h>
 
 struct character {
   char name[22];
@@ -56,8 +57,7 @@ void printMagic() {
   strcpy(text, selectMagic);
   typeWriter(text[15], delay);
   Sleep(strlen(selectMagic) * delay);
-} 
-
+}
 
 int main() {
   srand(time(NULL));
@@ -69,7 +69,7 @@ int main() {
   strcpy(player.name, name);
   printf("\n");
   
-  int randomHealth = rand() % 15 + 101;
+  int randomHealth = rand() % 15 + 5;
 
   struct character enemy = {"Rock", randomHealth, 0, 0, false};
   // printf("Enter a name for the enemy: ");
@@ -79,6 +79,7 @@ int main() {
   //
   // Don't want to have to spam "asd" twice now, do we?
 
+  //battle loop
   while (true) {
     printCharacter(player);
     printCharacter(enemy);
@@ -101,18 +102,53 @@ int main() {
 
     // action switch
     switch (action) {
-      case 1:
+      case 1: //basic attack
         printf("You hurt the enemy!\n");
         enemy.hp -= player.atk;
         if (enemy.hp < 0) enemy.hp = 0;
         break;
-      case 2:
-        printMagic();
+      // case 2:
+      //   printMagic();
+      case 2: //magick
+        int spell = -1;
+        while(spell != 0 && spell != 1 && spell != 2){
+          printf("spell: %d\n",spell);
+          spell = -1;
+          printf("Pick a valid spell to use! (0 for Basic Attack, 1 for Fireball, 2 for Heal\n");
+          scanf("%d", &spell);
+          getchar();
+        }
+        //check spells
+        if(spell == 1){
+          if(player.mp>=5){
+            printf("You cast fireball!\n");
+            player.mp-= 5;
+            enemy.hp -= 5;
+          } else{
+            printf("You don't have enough MP! (%d) your action FAILED!\n",player.mp);
+            player.mp+=1;
+            break;
+          }
+        } else if(spell == 2){
+          if(player.mp>=10){
+            printf("You healed yourself! (You can get really high numbers since there is no HP cap yet)\n");
+            player.mp-= 10;
+            player.hp += ceil(player.hp*0.1)+5;
+          }
+          else{
+            printf("You don't have enough MP! (%d) your action FAILED!\n",player.mp);
+            player.mp+=1;
+            break;
+          }
+        } else if(spell == 0){
+          action = 1;
+          break;
+        }
         break;
-      case 3:
+      case 3: //defence
         printf("you DEF went up by 100!, but it does NOTHING!\n");
         break;
-      case 4: 
+      case 4: //run
         printf("you ran away, fight over\n");
         return 0;
       default:
@@ -120,9 +156,9 @@ int main() {
     }
 
     printf("The rock took action!... But it can't move.\n\n");
-    
+    player.mp+=1;
   }
-  
+  //end of battle loop
   return 0;
 }
 // git rebase -i -p 8dc0355
