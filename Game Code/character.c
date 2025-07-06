@@ -1,14 +1,30 @@
+#include <time.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <windows.h>
+
+#include "delay.h"
 
 struct character {
-  char name[20];
-  int hp;
-  int mp;
-  int atk;
+  char name[22];
+  signed int hp;
+  unsigned int mp;
+  signed int atk;
+  boolean player;
 };
+
+const unsigned int delay = 17; // in milliseconds
+
+void printCharacter(struct character x) {
+  if (x.player) printf("Name: %s", x.name);
+  else printf("Name: %s\n", x.name);
+
+  printf("HP: %d\n", x.hp);
+  printf("MP: %d\n", x.mp);
+  printf("ATK: %d\n\n", x.atk);
+}
 
 int isDead(struct character p, struct character e){
   if (p.hp <= 0) return 1;
@@ -16,40 +32,64 @@ int isDead(struct character p, struct character e){
   return 0;
 }
 
-void printCharacter(struct character x) {
-  printf("Name: %s", x.name);
-  printf("HP: %d\n", x.hp);
-  printf("MP: %d\n", x.mp);
-  printf("ATK: %d\n\n", x.atk);
+void typeWriter(char* text[15], unsigned int delay) {
+  static int currentIndex = 0;
+
+  if (currentIndex < strlen(*text)) {
+    printf("%s", *(text + currentIndex));
+    currentIndex++;
+    setTimeout(typeWriter, delay);
+  }
+
+  else {
+    currentIndex = 0;
+    printf("\n");
+    printf("Task successfully completed.\n");
+  }
+    
 }
 
-int main() {
-  struct character player = {"N/A", 30, 10, 25};
-  char name[20];
-  printf("Enter a name: ");
-  fgets(name, sizeof(name), stdin);
-  printf("\n");
-  
-  strcpy(player.name, name);
-  
-  struct character enemy = {"Rock", 100, -1, 0};
-  printf("Enter a name for the enemy: ");
-  fgets(name, sizeof(name), stdin);
-  printf("\n");
+void printMagic() {
+  char selectMagic[15] = "Select a magic.";
+  printf("%s", selectMagic);
+  char* text = selectMagic;
+  strcpy(text, selectMagic);
+  typeWriter(text[15], delay);
+  Sleep(strlen(selectMagic) * delay);
+} 
 
-  strcpy(enemy.name, name);
+
+int main() {
+  srand(time(NULL));
+
+  struct character player = {"N/A", 30, 10, 25, true};
+  char name[20];
+  printf("Enter a name\n--------------------\n");
+  fgets(name, sizeof(name), stdin);
+  strcpy(player.name, name);
+  printf("\n");
+  
+  int randomHealth = rand() % 15 + 101;
+
+  struct character enemy = {"Rock", randomHealth, 0, 0, false};
+  // printf("Enter a name for the enemy: ");
+  // fgets(name, sizeof(name), stdin);
+  // printf("\n");
+  // strcpy(enemy.name, name);
+  //
+  // Don't want to have to spam "asd" twice now, do we?
 
   while (true) {
     printCharacter(player);
     printCharacter(enemy);
-    switch (isDead(player,enemy)) {
+    switch (isDead(player, enemy)) {
       case 0:
         break;
       case 1:
-        printf("You lost! You died to %s\n", enemy.name);
+        printf("You felt way too much pain and decided to die to %s.\nYOU...! Lose......", enemy.name);
         return 0;
       case 2:
-        printf("You win! You killed %s\n", enemy.name);
+        printf("%s crumbled into dust!\nYOU WIN!", enemy.name);
         return 0;
     }
 
@@ -64,9 +104,10 @@ int main() {
       case 1:
         printf("You hurt the enemy!\n");
         enemy.hp -= player.atk;
+        if (enemy.hp < 0) enemy.hp = 0;
         break;
       case 2:
-        printf("not implemented, bozo\n");
+        printMagic();
         break;
       case 3:
         printf("you DEF went up by 100!, but it does NOTHING!\n");
@@ -76,7 +117,6 @@ int main() {
         return 0;
       default:
         printf("What the heck are you trying to do?!\n");
-        break;
     }
 
     printf("The rock took action!... But it can't move.\n\n");
