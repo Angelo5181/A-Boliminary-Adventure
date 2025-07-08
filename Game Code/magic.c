@@ -17,19 +17,20 @@
 #endif//////////character.c
 
 void printMagic(int action, struct character player, struct character enemy) {
-  char selectMagic[100] = "Select a magic.";
-  char* text = selectMagic;
-  strcpy(text, selectMagic);
-  typeWriter(text);
-  char ba[100] = "0: Basic Attack";
-  strcpy(text, ba);
-  typeWriter(text);
-  char f[100] = "1: Fireball";
-  strcpy(text, f);
-  typeWriter(text);
-  char h[100] = "2: Heal";
-  strcpy(text, h);
-  typeWriter(text);
+  // char selectMagic[100] = "Select a magic.";
+  // char* text = selectMagic;
+  // strcpy(text, selectMagic);
+  
+  typeWriter("Select a magic");
+  //char ba[100] = "0: Basic Attack";
+  // strcpy(text, ba);
+  typeWriter("0: Basic Attack");
+  //char f[100] = "1: Fireball";
+  // strcpy(text, f);
+  typeWriter("1: Fireball");
+  //char h[100] = "2: Heal";
+  // strcpy(text, h);
+  typeWriter("2: Heal");
 }
 
 int magic(int action, struct character player, struct character enemy) {

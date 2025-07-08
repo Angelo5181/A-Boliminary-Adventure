@@ -26,7 +26,11 @@ int checkDead(struct character player, struct character enemy){
       return 0;
     case 1:
     printf("player.hp:%d\n",player.hp);
-      printf("You felt way too much pain and decided to die to %s.\nYOU...! Lose......", enemy.name);
+      if(strcmp("Peanut",player.name)==0){
+        printf("You were turned into %s butter by %s.\nYOU...! Lose......", player.name, enemy.name);
+      } else{
+        printf("You felt way too much pain and decided to die to %s.\nYOU...! Lose......", enemy.name);
+      }
       return 1;
     case 2:
       printf("%s crumbled into dust!\nYOU WIN!", enemy.name);

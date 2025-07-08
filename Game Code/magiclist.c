@@ -28,7 +28,7 @@ int makeMagics(){
   struct spell fire3 = {"Heatstroke",0,5,false,true,3};
   struct spell fire4 = {"Pillar of Flame",60,5,false,false,3};
 
-  struct magic physical = {"physical",0};
+  struct magic physical = {"physical",0}; // valve pls fix
   struct magic fire = {"fire",1,fire1,fire2,fire3,fire4};
 
   magicHolder[0] = physical;

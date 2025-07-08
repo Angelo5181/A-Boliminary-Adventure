@@ -24,7 +24,7 @@
 
 int main() {
   srand(time(NULL));//for randomHealth
-  int randomHealth = rand() % 15 + 10;
+  int randomHealth = rand() % 15 + 11;
 
   //make characters for player and enemy
   struct character player = {"N/A", 30, 30, 10, 10, 5, true};
@@ -39,6 +39,23 @@ int main() {
   printf("\n");
 
   struct character enemy = {"Sentient Rock", randomHealth, randomHealth, 0, 0, 1, false};
+
+  char illegalName[7] = "Peanut";
+  int PeanutNotDetected = strcmp(player.name, illegalName);
+  if (!PeanutNotDetected) {
+    printf("PEANUT DETECTED!!!\n");
+    enemy.atk *=10;
+    strcpy(enemy.name, "Peanut Crusher");
+  }
+
+  char legalName[7] = "Walnut";
+  int WalnutNotDetected = strcmp(player.name, legalName);
+  if (!WalnutNotDetected) {
+    printf("Wow... I can't believe it! IT'S A WALNUT!!!\n");
+    printf("Rocks must obey the walnut.");
+    enemy.hp -= 10;
+    strcpy(enemy.name, "Walnut Obeyer");
+  }
   // printf("Enter a name for the enemy: ");
   // fgets(name, sizeof(name), stdin);
   // printf("\n");
