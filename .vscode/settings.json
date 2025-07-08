@@ -1,0 +1,11 @@
+{
+  "files.associations": {
+    "math.h": "c",
+    "stdbool.h": "c",
+    "stdio.h": "c",
+    "time.h": "c",
+    "delay.h": "c",
+    "string.h": "c",
+    "stdlib.h": "c"
+  }
+}

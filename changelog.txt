@@ -1,0 +1,24 @@
+macro list:
+MAGICLIST_C - contains include for magiclist.c
+CHARACTER_C - contains include for character.c
+FIGHT_C - contains include for fight.c
+TYPEWRITER_C - contains include for typewriter.c
+MAGIC_C - contains include for magic.c
+
+July 6, 2025 & July 7 2025 (changed at midnight):
+  -made macros: MAGICLIST_C, CHARACTER_C, FIGHT_C, TYPEWRITER_C, MAGIC_C.
+  -used header guards (#ifndef,#define,#endif) to have the code be able to use functions in other files
+  -made magiclist.c containing structs for magics
+  -moved the logic from int magic() in magic.c to fight.c to make the numbers change correctly
+  -added some functionality for case 3: (defending) in fight.c (think of a different solution later since it only works for 1v1)
+  -renamed isDead() in character.c to findVictor() (also renamed all calls to it)
+  -isDead() in character.c now just checks if character.hp is <=0
+  -modified typewriter.c to support typewriting longer strings (current max length:99)
+  -changed some logic in fight.c:
+    defending and failing to use a spell are the only ways to gain mp now,
+    the enemy can now fight back (it always attacks)
+    mp will not go past maxmp
+  -when obtaining input for player.name in main.c, I replaced the '\n' with '\0', commented out the if else statement at the beginning of printCharacter() in character.c
+  
+
+    
