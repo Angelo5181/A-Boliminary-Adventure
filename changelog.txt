@@ -25,3 +25,6 @@ July 8, 2025:
   - As for "Walnut"...
   - Rocks get turned into Rock Butter
     
+July 10, 2025
+  - Cleaned up code slightly
+  - Updated `printCharacter()` to show Max MP
