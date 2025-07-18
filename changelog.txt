@@ -22,6 +22,11 @@ July 6, 2025 & July 7 2025 (changed at midnight):
   
 July 8, 2025:
   - "Peanut" usually does not survive this experiment.
-  - As for "Walnut"...
-  - Rocks get turned into Rock Butter
+  - As for "Walnut"... Rocks get turned into Rock Butter
     
+
+July 17, 2025:
+  - added characterList and enemyList in character.c, they are struct character arrays, you can use CHARACTER_LIST_SIZE to get their size
+  - modified how the names "Peanut" and "Walnut" are found (using arrays now). Also changed some of the dialogue when using these names.
+  - added teamFight() in fight.c (still incomplete, but will be used to for battles that are not 1v1)
+  - added typeWriterPointer() in typewriter.c to not need to specify string size.

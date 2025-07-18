@@ -4,6 +4,11 @@
 #include <time.h>
 #include <stdlib.h>
 
+#ifndef TYPEWRITER_C
+#define TYPEWRITER_C
+#include "typewriter.c"
+#endif
+
 #ifndef MAGIC_C
 #define MAGIC_C
 #include "magic.c"
@@ -38,10 +43,10 @@ int checkDead(struct character player, struct character enemy){
     }
 }
 
-//fight() is a battle loop that only ends when one side dies or runs away. (currently works for 1v1 only)
-//returns 1 if you lose
-//returns 2 if you win
-//returns 3 if you run away
+/**
+ * fight() is a battle loop that only ends when one side dies or runs away. (currently works for 1v1 only)
+ * returns: 1 if you lose, 2 if you win, 3 if you run away
+ */
 int fight(struct character player, struct character enemy){
   while(true) {
     printCharacter(player);
@@ -153,4 +158,20 @@ int fight(struct character player, struct character enemy){
   }
   //end of battle loop
   return 0;
+}
+
+int teamFight(int playerCount, int enemyCount, struct character players[], struct character enemies[]){
+  printf("---Team---");
+  for(int i = 0; i < playerCount; i++){
+    printCharacter(players[i]);
+  }
+  printf("---Opponents---");
+  for(int i = 0; i < enemyCount; i++){
+    printCharacter(enemies[i]);
+  }
+  char test[100];
+  printf("Enter some text\n");
+  fgets(test, sizeof(test),stdin);
+  printf("test:%s\n",test);
+  typeWriterPointer(test,false);
 }

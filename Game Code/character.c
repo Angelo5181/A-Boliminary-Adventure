@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include <stdio.h>
+#include <ctype.h>
 
 struct character {
   char name[22];
@@ -10,6 +11,11 @@ struct character {
   signed int atk;
   bool player;
 };
+
+struct character characterList[5];
+struct character enemyList[5];
+
+const int CHARACTER_LIST_SIZE = sizeof(characterList)/sizeof(characterList[0]);
 
 void printCharacter(struct character x) {
   // if (x.player) printf("Name: %s", x.name);

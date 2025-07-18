@@ -6,6 +6,7 @@
     "time.h": "c",
     "delay.h": "c",
     "string.h": "c",
-    "stdlib.h": "c"
+    "stdlib.h": "c",
+    "ctype.h": "c"
   }
 }
