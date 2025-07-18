@@ -30,17 +30,16 @@ int checkDead(struct character player, struct character enemy){
     case 0:
       return 0;
     case 1:
-    printf("player.hp:%d\n",player.hp);
-      if(strcmp("Peanut",player.name)==0){
-        printf("You were turned into %s butter by %s.\nYOU...! Lose......", player.name, enemy.name);
-      } else{
-        printf("You felt way too much pain and decided to die to %s.\nYOU...! Lose......", enemy.name);
-      }
+      printf("player.hp:%d\n",player.hp);
+      if (!strcmp("Peanut", player.name)) printf("You were turned into %s butter by %s.\nYOU...! Lose......", player.name, enemy.name);
+      else printf("You felt way too much pain and decided to die to %s.\nYOU...! Lose......", enemy.name);
       return 1;
     case 2:
       printf("%s crumbled into dust!\nYOU WIN!", enemy.name);
       return 2;
-    }
+    default:
+      return 0;
+  }
 }
 
 /**
@@ -80,8 +79,8 @@ int fight(struct character player, struct character enemy){
         //magic(action, player, enemy);
 
         int spell = -1;
-        printMagic(action, player, enemy);
-        while (spell != 0 && spell != 1 && spell != 2){
+        while (spell < 0 || spell > 2) {
+          //printf("in loop\n");
           printf("\nspell: %d\n",spell);
           spell = -1;
           printf("Pick a valid spell to use! (0 for Basic Attack, 1 for Fireball, 2 for Heal\n");
@@ -89,52 +88,47 @@ int fight(struct character player, struct character enemy){
           getchar();
         }
         //check spells
-        if(spell == 1){
-          if(player.mp>=5){
+        if (spell == 1) {
+          if (player.mp >= 5) {
             printf("You cast fireball!\n");
             player.mp-= 5;
             enemy.hp -= 5;
-            printf("player.mp:%d, enemy.hp:%d\n",player.mp,enemy.hp);
-          } else{
-            printf("You don't have enough MP! (%d) your action FAILED!\n",player.mp);
-            player.mp+=1;
-            if(player.mp>player.maxmp){
-              player.mp = player.maxmp;
-            }
-            //break;
+            printf("player.mp:%d, enemy.hp:%d\n", player.mp, enemy.hp);
           }
-        } else if(spell == 2){
-          if(player.mp>=10){
+          else {
+            printf("You don't have enough MP! (%d) your action FAILED!\n", player.mp);
+            player.mp += 1;
+            if (player.mp>player.maxmp) player.mp = player.maxmp;
+          }
+        }
+        else if (spell == 2) {
+          if (player.mp >= 10) {
             player.mp-= 10;
             int healamount = ceil(player.maxhp*0.1)+5;
             player.hp += healamount;
             printf("You healed yourself! by %d\n",healamount);
-            if(player.hp>player.maxhp){
-              player.hp = (player.maxhp+0);
-            }
-            printf("player.mp:%d, player.hp:%d\n",player.mp,player.hp);
+
+            if (player.hp > player.maxhp) player.hp = (player.maxhp + 0);
+
+            printf("player.mp:%d, player.hp:%d\n", player.mp, player.hp);
           }
-          else{
-            printf("You don't have enough MP! (%d) your action FAILED!\n",player.mp);
-            player.mp+=1;
-            if(player.mp>player.maxmp){
-              player.mp = player.maxmp;
-            }
-            //break;
+          else {
+            printf("You don't have enough MP! (%d) your action FAILED!\n", player.mp);
+            player.mp += 1;
+            if (player.mp > player.maxmp) player.mp = player.maxmp;
           }
-        } else if(spell == 0){
-          enemy.hp-=player.atk;
-          printf("player.atk:%d, enemy.hp:%d\n",player.atk,enemy.hp);
-          //break;
         }
+        else if (!spell) {
+          enemy.hp -= player.atk;
+          printf("player.atk:%d, enemy.hp:%d\n",player.atk,enemy.hp);
+        }
+        else printf("No spell used");
         break;
       case 3: //defence, take half damage
-        enemy.atk = floor(enemy.atk*0.5);
+        damageTaken = floor(enemy.atk * 0.5);
         printf("You defended! Enemy attacks will hurt less for this turn!\n");
-        player.mp+=1;
-        if(player.mp>player.maxmp){
-          player.mp = player.maxmp;
-        }
+        player.mp += 1;
+        if(player.mp > player.maxmp) player.mp = player.maxmp;
         break;
       case 4: //run
         printf("you ran away, fight over\n");
@@ -147,9 +141,7 @@ int fight(struct character player, struct character enemy){
     //check for a death
     battlecondition = checkDead(player,enemy);
     printf("battlecondition:%d\n",battlecondition);
-    if(battlecondition != 0){
-      return battlecondition;
-    }
+    if (battlecondition) return battlecondition; //if not 0 return condition
 
     printf("The rock took action!... It always attacks!.\n");
     player.hp-=enemy.atk;

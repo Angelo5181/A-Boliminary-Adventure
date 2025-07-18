@@ -30,7 +30,6 @@
 
 int main() {
   srand(time(NULL));//for randomHealth
-  int randomHealth = rand() % 15 + 11;
 
   //get amount of players
   int playerCount = -1;
@@ -50,9 +49,15 @@ int main() {
   }
   printf("enemyCount:%d\n",enemyCount);
 
-  //make characters for player and enemy
+  //make characters for player
+  int maxHealth = 30;
+  int health = maxHealth;
+  int maxMagicPoints = 10;
+  int magicPoints = maxMagicPoints;
+  int attack = 5;
+  bool isPlayer = true;
   for(int i = 0; i < playerCount; i++){
-    struct character player = {"N/A", 30, 30, 10, 10, 5, true};
+    struct character player = {"N/A", maxHealth, health, maxMagicPoints, magicPoints, attack, isPlayer};
     char name[20];
     printf("Enter a name for player %d\n--------------------\n",(i+1));
     fgets(name, sizeof(name), stdin);
@@ -66,7 +71,7 @@ int main() {
   }
 
   for(int i = 0; i < enemyCount; i++){
-    struct character enemy = {"Sentient Rock", randomHealth, randomHealth, 0, 0, 1, false};
+    struct character enemy = {"Sentient Rock", randomHealth, randomHealth, maxMagicPoints, magicPoints, attack, isPlayer};
     randomHealth = rand() % 15 + 11;
     enemyList[i] = enemy;
   }
