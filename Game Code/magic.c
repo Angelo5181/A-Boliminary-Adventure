@@ -77,4 +77,6 @@ int magic(int action, struct character player, struct character enemy) {
       //break;
     }
   }
+  
+  return 0;
 }

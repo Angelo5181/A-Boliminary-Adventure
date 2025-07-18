@@ -70,6 +70,14 @@ int main() {
     characterList[i] = player;
   }
 
+  //make characters for enemy
+  maxHealth = 30;
+  health = maxHealth;
+  int randomHealth = rand() % 15 + 11;
+  maxMagicPoints = 0;
+  magicPoints = maxMagicPoints;
+  attack = 1;
+  isPlayer = false;
   for(int i = 0; i < enemyCount; i++){
     struct character enemy = {"Sentient Rock", randomHealth, randomHealth, maxMagicPoints, magicPoints, attack, isPlayer};
     randomHealth = rand() % 15 + 11;

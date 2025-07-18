@@ -67,12 +67,14 @@ int fight(struct character player, struct character enemy){
     scanf("%d", &action);
     getchar();
 
+    int damageTaken = 0;
     // action switch
     switch (action) {
       case 1: //basic attack
         //printf("fight\n");
         enemy.hp-=player.atk;
         printf("You hit the enemy! %d hp left.\n",enemy.hp);
+        damageTaken = enemy.atk;
         break;
       case 2: //magick
         //printMagic(action, player, enemy);
@@ -87,6 +89,7 @@ int fight(struct character player, struct character enemy){
           scanf("%d", &spell);
           getchar();
         }
+        //printf("after loop\n");
         //check spells
         if (spell == 1) {
           if (player.mp >= 5) {
@@ -123,6 +126,7 @@ int fight(struct character player, struct character enemy){
           printf("player.atk:%d, enemy.hp:%d\n",player.atk,enemy.hp);
         }
         else printf("No spell used");
+        damageTaken = enemy.atk;
         break;
       case 3: //defence, take half damage
         damageTaken = floor(enemy.atk * 0.5);
@@ -144,8 +148,8 @@ int fight(struct character player, struct character enemy){
     if (battlecondition) return battlecondition; //if not 0 return condition
 
     printf("The rock took action!... It always attacks!.\n");
-    player.hp-=enemy.atk;
-    printf("You took %d damage.\n\n",enemy.atk);
+    player.hp-=damageTaken;
+    printf("You took %d damage.\n\n",damageTaken);
     enemy.atk = tempenemyatk;
   }
   //end of battle loop
