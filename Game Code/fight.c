@@ -193,5 +193,5 @@ int teamFight(int playerCount, int enemyCount, struct character players[], struc
 	printf("Enter some text\n");
 	fgets(test, sizeof(test), stdin);
 	printf("test:%s\n", test);
-	typeWriterPointer(test, false, (int)strlen(test));
+	typeWriterPointer(test, (int)strlen(test), false);
 }

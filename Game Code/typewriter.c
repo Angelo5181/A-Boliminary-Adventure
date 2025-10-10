@@ -31,7 +31,7 @@ void typeWriter(char* text, int length)
  * *text is just a string, can be like: "Sample Text"
  * removeNewLine determines whether to remove the final '\n' from fgets()
  */
-void typeWriterPointer(char *text, int removeNewLine, int length)
+void typeWriterPointer(char *text, int length, int removeNewLine)
 {
 	printf("text:%s\n", text);
 	for (int i = 0; i < length; i++)
@@ -53,6 +53,6 @@ void typeWriterPointer(char *text, int removeNewLine, int length)
 		}
 		Sleep(delay);
 	}
-	printf("\n");
+	//printf("\n");
 	// printf("%d %s\n", length, text);
 }

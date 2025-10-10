@@ -40,3 +40,7 @@ July 17, 2025:
 Oct 1, 2025:
   - reformatted the code to use tabs of size 4 instead of size 2
   - changed typewriter.c and delay.h to include functionality for linux systems (more specifically ubuntu)
+
+Oct 6, 2025:
+  - changed typeWriterPointer()'s parameters to better match typeWriter()'s (order of parameters)
+      went from typeWriterPointer(char *text, int removeNewLine, int length) to typeWriterPointer(char *text, int length, int removeNewLine)
